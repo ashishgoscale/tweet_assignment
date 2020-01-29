@@ -3,6 +3,8 @@
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   skip_before_action :verify_authenticity_token
+  skip_before_action :verify_signed_out_user, only: [:destroy]
+
   # GET /resource/sign_in
   # def new
   #   super
@@ -34,6 +36,13 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  def profile
+    if @current_user.present?
+      render json: ProfileSerializer.new(@current_user).serializable_hash, status: 200
+    else
+      render json: "{ error: 'Please Login in' }", status: 200
+    end
+  end
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
