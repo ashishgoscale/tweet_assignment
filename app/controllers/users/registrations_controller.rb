@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    user = User.find_by email: params[:user][:email] if params[:user].present?
+    user = User.find_by email: params[:user][:email]
     if user.present?
       render json: "{ error: 'User already register with us.'}", status: 200
     else

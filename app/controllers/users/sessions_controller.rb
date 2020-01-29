@@ -25,9 +25,14 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    if @current_user.present?
+      @current_user.auth_tokens.take.destroy
+      render json: "{ success: 'Logout successfully' }"
+    else
+      render json: "{ error: 'Please Login in' }", status: 200
+    end
+  end
 
   # protected
 

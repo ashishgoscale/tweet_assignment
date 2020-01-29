@@ -7,6 +7,7 @@ class User < ApplicationRecord
   #relationship
   has_many :auth_tokens, dependent: :destroy
   has_many :tweets, dependent: :destroy
+  has_many :follows, dependent: :destroy
 
   #validations
   validates :password, confirmation: true
@@ -17,5 +18,13 @@ class User < ApplicationRecord
   		token = SecureRandom.hex(12)
   		break token unless AuthToken.find_by device_token: token 
   	end
+  end
+
+  def follower
+    self.follows.where(is_follow: 2)
+  end
+
+  def following
+    self.follows.where(is_follow: 1)
   end
 end
