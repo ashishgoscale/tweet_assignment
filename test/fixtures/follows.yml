@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  is_follow: 1
+  follow_id: MyString
+  integer: MyString
+  user: one
+
+two:
+  is_follow: 1
+  follow_id: MyString
+  integer: MyString
+  user: two
